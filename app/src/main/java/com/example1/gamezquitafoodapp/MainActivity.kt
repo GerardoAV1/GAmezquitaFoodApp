@@ -146,6 +146,64 @@ fun MainApp(){
                }
            }
         }
+        //Busca Mejores Restaurantes
+        Text("Busca los mejores restaurantes",
+            fontSize = 24.sp,
+            modifier = Modifier
+                .padding(top = 10.dp )
+
+        )
+        // Restaurantes
+        val restaurantes= listOf("Burger King", "McDonald´s","KFC","Pizza Hut","Daddy Queen")
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(160.dp)
+                .padding(top = 25.dp)
+        ) {
+            items(restaurantes){ restaurantes ->
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.padding(5.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(90.dp)
+                            .clip(CircleShape)
+                            .background(Color.Red),
+                        contentAlignment = Alignment.Center
+                    ){
+
+                        Icon(
+                            imageVector = Icons.Default.AccountCircle,
+                            contentDescription = "Account",
+
+                            modifier = Modifier
+                                .size(40.dp)
+
+
+                        )
+
+
+                    }
+                    Text(text = restaurantes,
+                        modifier = Modifier.padding(8.dp)
+
+                    )
+
+
+
+                }
+            }
+        }
+        //Nuestras Mejores Comidas
+        Text("Nuestras mejores comidas",
+            fontSize = 24.sp,
+            modifier = Modifier
+                .padding(top = 10.dp )
+
+        )
+
     }
 }
 
