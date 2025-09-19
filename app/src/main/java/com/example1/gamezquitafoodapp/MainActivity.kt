@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -29,7 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,12 +42,15 @@ class MainActivity : ComponentActivity() {
         setContent {
             GAmezquitaFoodAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-
+                    MainApp()
                 }
             }
         }
     }
 }
+
+data class BrandItem(val name: String, val image: Int)
+data class BrandItems(val name: String, val image: Int)
 
 @Composable
 fun MainApp(){
@@ -80,12 +82,12 @@ fun MainApp(){
             }
             //Letra
             Text("Hola, Gerardo",
-                    fontSize = 24.sp,
-                    modifier = Modifier
-                        .padding(start = 10.dp, top = 5.dp)
-                        .weight(1f),
+                fontSize = 24.sp,
+                modifier = Modifier
+                    .padding(start = 10.dp, top = 5.dp)
+                    .weight(1f),
 
-            )
+                )
             //Icono salida
             Icon(
                 imageVector = Icons.Default.ExitToApp,
@@ -98,70 +100,26 @@ fun MainApp(){
         }
         //Nuestras Categorias
         Text("Nuestras categorias",
-                fontSize = 24.sp,
-                modifier = Modifier
-                    .padding(top = 20.dp )
-
-        )
-        // Lista Categorias
-        val categories = listOf("Fast Food", "Chinese","Italian","Mexican","Japanese")
-        LazyRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(160.dp)
-                .padding(top = 25.dp)
-        ) {
-           items(categories){ categories ->
-               Column(
-                   horizontalAlignment = Alignment.CenterHorizontally,
-                   modifier = Modifier.padding(5.dp)
-               ) {
-                   Box(
-                       modifier = Modifier
-                           .size(90.dp)
-                           .clip(CircleShape)
-                           .background(Color.Red),
-                       contentAlignment = Alignment.Center
-                   ){
-
-                           Icon(
-                               imageVector = Icons.Default.AccountCircle,
-                               contentDescription = "Account",
-
-                               modifier = Modifier
-                                   .size(40.dp)
-
-
-                           )
-
-
-                   }
-                   Text(text = categories,
-                       modifier = Modifier.padding(8.dp)
-
-                   )
-
-
-
-               }
-           }
-        }
-        //Busca Mejores Restaurantes
-        Text("Busca los mejores restaurantes",
             fontSize = 24.sp,
             modifier = Modifier
-                .padding(top = 10.dp )
+                .padding(top = 20.dp )
 
         )
-        // Restaurantes
-        val restaurantes= listOf("Burger King", "McDonald´s","KFC","Pizza Hut","Daddy Queen")
+        // Categorias
+        val categorias = listOf(
+            BrandItems("Fast Food", R.drawable.comidara),
+            BrandItems("Chinese", R.drawable.comidachi),
+            BrandItems("Italian", R.drawable.comidaita),
+            BrandItems("Mexican", R.drawable.comidamex),
+            BrandItems("Japanese", R.drawable.comidaja),
+        )
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(160.dp)
                 .padding(top = 25.dp)
         ) {
-            items(restaurantes){ restaurantes ->
+            items(categorias){ item ->
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.padding(5.dp)
@@ -174,19 +132,68 @@ fun MainApp(){
                         contentAlignment = Alignment.Center
                     ){
 
-                        Icon(
-                            imageVector = Icons.Default.AccountCircle,
-                            contentDescription = "Account",
-
-                            modifier = Modifier
-                                .size(40.dp)
-
-
+                        Image(
+                            painter = painterResource(id = item.image),
+                            contentDescription = item.name,
+                            modifier = Modifier.size(90.dp)
                         )
 
 
                     }
-                    Text(text = restaurantes,
+                    Text(text = item.name,
+                        modifier = Modifier.padding(8.dp)
+
+                    )
+
+
+
+                }
+            }
+        }
+        //Busca Mejores Restaurantes
+        Text("Busca los mejores restaurantes",
+            fontSize = 24.sp,
+            modifier = Modifier
+                .padding(top = 10.dp )
+
+        )
+        // Restaurantes
+
+
+        val restaurantes = listOf(
+            BrandItem("KFC", R.drawable.kfclaila),
+            BrandItem("Burger King", R.drawable.burgerking),
+            BrandItem("McDonald's", R.drawable.mcdonalds),
+            BrandItem("Pizza Hut", R.drawable.hutpizza),
+            BrandItem("Dairy Queen", R.drawable.dairyqueen),
+        )
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(160.dp)
+                .padding(top = 25.dp)
+        ) {
+            items(restaurantes){ item ->
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.padding(5.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(90.dp)
+                            .clip(CircleShape),
+                        contentAlignment = Alignment.Center
+                    ){
+
+                        Image(
+                            painter = painterResource(id = item.image),
+                            contentDescription = item.name,
+                            modifier = Modifier.size(90.dp)
+                        )
+
+
+                    }
+                    Text(text = item.name,
                         modifier = Modifier.padding(8.dp)
 
                     )
