@@ -51,6 +51,8 @@ class MainActivity : ComponentActivity() {
 
 data class BrandItem(val name: String, val image: Int)
 data class BrandItems(val name: String, val image: Int)
+data class FoodItem(val name: String, val image: Int, val rating: Double, val price: Double)
+
 
 @Composable
 fun MainApp(){
@@ -210,6 +212,104 @@ fun MainApp(){
                 .padding(top = 10.dp )
 
         )
+        //Lista de nuestras mejores comidas
+        val comidas = listOf(
+            FoodItem("Whopper", R.drawable.whopper, 4.5, 99.8),
+            FoodItem("Chicken Fries", R.drawable.chickenfries, 4.3, 59.8),
+            FoodItem("Big Mac", R.drawable.bigmac, 4.6, 79.8),
+
+        )
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 15.dp)
+        ) {
+            items(comidas) { comida ->
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .padding(8.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = comida.image),
+                        contentDescription = comida.name,
+                        modifier = Modifier
+                            .size(100.dp)
+                    )
+
+                    // Precio en botoncito rojo
+                    Box(
+                        modifier = Modifier
+                            .background(Color(0xFFE74C3C))
+                            .padding(horizontal = 10.dp, vertical = 5.dp)
+                    ) {
+                        Text(
+                            text = "$${comida.price}",
+                            color = Color.White
+                        )
+                    }
+
+                    // Estrellita + rating
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(text = "★", color = Color(0xFFFFD700))
+                        Text(text = comida.rating.toString())
+                    }
+
+                    Text(text = comida.name)
+                }
+            }
+        }
+        //Otro LazyRow
+        val comidas2 = listOf(
+            FoodItem("McFlurry", R.drawable.mcflurry, 4.7, 49.8),
+            FoodItem("Nuggets", R.drawable.nuggets, 4.3, 69.8)
+        )
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 15.dp)
+        ) {
+            items(comidas2) { comida ->
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .padding(8.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = comida.image),
+                        contentDescription = comida.name,
+                        modifier = Modifier
+                            .size(100.dp)
+                    )
+
+                    // Precio en botoncito rojo
+                    Box(
+                        modifier = Modifier
+                            .background(Color(0xFFE74C3C))
+                            .padding(horizontal = 10.dp, vertical = 5.dp)
+                    ) {
+                        Text(
+                            text = "$${comida.price}",
+                            color = Color.White
+                        )
+                    }
+
+                    // Estrellita + rating
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(text = "★", color = Color(0xFFFFD700))
+                        Text(text = comida.rating.toString())
+                    }
+
+                    Text(text = comida.name)
+                }
+            }
+        }
+
+
 
     }
 }
